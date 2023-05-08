@@ -35,8 +35,9 @@ class Game {
     switch (direction) {
       case "left":
         head.x = head.x - 1;
-        if (head.x === 0) {
-          head.x = 18;
+        // console.log(head.x);
+        if (head.x === -1) {
+          head.x = this.cellCount;
         }
         break;
       case "right":
@@ -47,8 +48,9 @@ class Game {
         break;
       case "up":
         head.y = head.y - 1;
-        if (head.y === 0) {
-          head.y = 18;
+        // console.log(head.y);
+        if (head.y === -1) {
+          head.y = this.cellCount;
         }
         break;
       case "down":
