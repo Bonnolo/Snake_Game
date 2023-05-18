@@ -1,9 +1,20 @@
-class Snake {
+export default class Snake {
   constructor(direction) {
     this.segments = [];
     this.direction = direction;
   }
+
   createSegments(minX, minY, maxX, maxY) {
+    // this.segments = [
+    //   {
+    //     x: 0,
+    //     y: 0
+    //   },{
+    //     x: 1,
+    //     y: 0
+    //   }
+    // ]
+
     switch (this.direction) {
       case "left":
         for (let i = minX; i <= maxX; i++) {
@@ -22,13 +33,26 @@ class Snake {
         break;
       case "down":
         for (let i = maxY; i >= minY; i--) {
-          this.segments.push({ x: minX, y: i });
+          this.segments.push({ x: 0, y: i });
         }
         break;
     }
+
+    // console.log(this.segments);
   }
+
   render(ctx, cellSize) {
-    this.segments.forEach((segment, index) => {
+    ctx.fillStyle = "blue";
+
+    // questo è il nostro array
+    // segments = [
+    //   { x: 0, y: 0 }, 0
+    //   { x: 0, y: 1 }, 1
+    //   { x: 0, y: 2 }, 2
+    //   { x: 0, y: 3 }, 3
+    // ];
+
+    this.segments.forEach((segment) => {
       ctx.fillRect(
         segment.x * cellSize,
         segment.y * cellSize,
@@ -37,9 +61,22 @@ class Snake {
       );
     });
   }
-  move(head) {
-    this.segments.pop();
+
+  setDirection(direction) {
+    if (
+      direction === "left" ||
+      direction === "right" ||
+      direction === "up" ||
+      direction === "down"
+    ) {
+      this.direction = direction;
+    }
+  }
+
+  move(head, hasEaten) {
+    if (!hasEaten) {
+      this.segments.pop();
+    }
     this.segments.unshift(head);
   }
 }
-export default Snake;
